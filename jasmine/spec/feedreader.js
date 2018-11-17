@@ -8,6 +8,7 @@
  * since some of these tests may require DOM elements. We want
  * to ensure they don't run until the DOM is ready.
  */
+
 $(
   (function() {
     //  "RSS Feeds" test suite
@@ -50,14 +51,20 @@ $(
       });
     });
 
-    /* TODO: Write a new test suite named "Initial Entries" */
-
-    /* TODO: Write a test that ensures when the loadFeed
-     * function is called and completes its work, there is at least
-     * a single .entry element within the .feed container.
-     * Remember, loadFeed() is asynchronous so this test will require
-     * the use of Jasmine's beforeEach and asynchronous done() function.
-     */
+    // "Initial Entries" test suite
+    describe("Initial Entries", function() {
+      var entry;
+      beforeEach(done => {
+        loadFeed(0, () => {
+          var entry = $(".feed .entry").length;
+          done();
+        });
+      });
+      it("ensures at least one .entry within .feed", function(done) {
+        expect(entry).not.toBe(0);
+        done();
+      });
+    });
 
     /* TODO: Write a new test suite named "New Feed Selection" */
 
