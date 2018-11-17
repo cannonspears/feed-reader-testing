@@ -68,18 +68,19 @@ $(
 
     // "New Feed Selection" test suite
     describe("New Feed Selection", function() {
-      // "loadFeed function changes content" tets
-      var feed1, feed2;
+      // "loadFeed function changes content" test
+      var feed1;
+      var feed2;
+
       beforeEach(done => {
         loadFeed(0, () => {
           feed1 = $(".feed").html();
-        });
-        loadFeed(1, () => {
-          feed2 = $(".feed").html();
-          done();
+          loadFeed(1, done);
         });
       });
+
       it("ensures content has changed", done => {
+        feed2 = $(".feed").html();
         expect(feed1).not.toEqual(feed2);
         done();
       });
